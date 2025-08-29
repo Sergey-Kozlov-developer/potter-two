@@ -1,0 +1,91 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap");
+
+@font-face {
+	font-family: "Harry Potter";
+	src: url("https://fonts.cdnfonts.com/s/22288/HarryP.woff") format("woff");
+}
+
+body {
+	background: linear-gradient(135deg, #0e1a40 0%, #1a472a 100%);
+	min-height: 100vh;
+	color: white;
+	font-family: "Cinzel", serif;
+}
+
+.hogwarts-card {
+	background: rgba(0, 0, 0, 0.7);
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 215, 0, 0.3);
+	border-radius: 16px;
+	transition: all 0.3s ease;
+}
+
+.hogwarts-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 25px rgba(255, 215, 0, 0.2);
+}
+
+.spell-button {
+	background: linear-gradient(135deg, #d3a625 0%, #ecb939 100%);
+	color: #372e29;
+	transition: all 0.3s ease;
+	font-weight: bold;
+}
+
+.spell-button:hover {
+	background: linear-gradient(135deg, #ecb939 0%, #ffd700 100%);
+	transform: scale(1.05);
+}
+
+.parchment {
+	background: #f5ecd2;
+	color: #372e29;
+	background-image: linear-gradient(
+			rgba(195, 173, 124, 0.3) 1px,
+			transparent 1px
+		),
+		linear-gradient(90deg, rgba(195, 173, 124, 0.3) 1px, transparent 1px);
+	background-size: 20px 20px;
+	border: 1px solid #c3ad7c;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.floating-icons {
+	position: absolute;
+	font-size: 2rem;
+	z-index: 10;
+	animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-20px);
+	}
+}
+
+.house-gryffindor {
+	color: #740001;
+	border-color: #740001;
+}
+.house-slytherin {
+	color: #1a472a;
+	border-color: #1a472a;
+}
+.house-ravenclaw {
+	color: #0e1a40;
+	border-color: #0e1a40;
+}
+.house-hufflepuff {
+	color: #ecb939;
+	border-color: #ecb939;
+}
+
+.font-magic {
+	font-family: "Harry Potter", "Cinzel", serif;
+}
