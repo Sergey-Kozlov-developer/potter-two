@@ -1,31 +1,15 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import Loading from "../../components/Loading/Loading.jsx";
 import CharacterItem from "../../components/Character/CharacterItem.jsx";
-// import Error from '../../components/Error';
+import { useHPApi } from "../../hooks/useHPApi.js";
+import Error from "../../components/Error/Error.jsx";
+import PaginationComponent from "../../components/Pagination/PaginationComponent.jsx";
 
 function Characters() {
-	const [characters, setCharacter] = useState([]);
-	const [loading, setLoading] = useState(true);
-	// const [error, setError] = useState();
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const response = await axios.get(
-					"https://hp-api.onrender.com/api/characters"
-				);
-				setCharacter(response.data);
-				setLoading(false);
-			} catch (error) {
-				console.log("Error: ", error.message);
-				setLoading(false);
-			}
-		};
-		fetchData();
-	}, []);
+	const { data, loading, error, pageCount, handlePageChange, currentPage } =
+		useHPApi();
 
 	if (loading) return <Loading />;
-	// if (error) return <Error message={error} />
+	if (error) return <Error message={error} />;
 
 	return (
 		<div className="min-h-screen bg-gradient-to-b from-[#0E1A40] to-[#1A472A] py-8 px-4">
@@ -37,10 +21,20 @@ function Characters() {
 					{/* List characters */}
 
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-						{characters.map((item) => (
+						{data.map((item) => (
 							<CharacterItem key={item.id} character={item} />
 						))}
 					</div>
+					{pageCount > 1 && (
+						<PaginationComponent
+							onPageChange={handlePageChange}
+							pageCount={pageCount}
+							currentPage={currentPage}
+						/>
+					)}
+				</div>
+				<div className="text-center text-gray-600 text-sm mt-4">
+					Страница {currentPage} из {pageCount}
 				</div>
 			</div>
 		</div>
