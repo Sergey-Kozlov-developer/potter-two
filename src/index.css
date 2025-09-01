@@ -89,3 +89,38 @@ body {
 .font-magic {
 	font-family: "Harry Potter", "Cinzel", serif;
 }
+/* Цвета факультетов */
+.bg-gryffindor-red\/10 {
+	background-color: rgba(116, 0, 1, 0.1);
+}
+.to-gryffindor-dark\/20 {
+	background-color: rgba(94, 0, 1, 0.2);
+}
+.bg-slytherin-green\/10 {
+	background-color: rgba(26, 71, 42, 0.1);
+}
+.to-slytherin-dark\/20 {
+	background-color: rgba(13, 40, 24, 0.2);
+}
+.bg-ravenclaw-blue\/10 {
+	background-color: rgba(14, 26, 64, 0.1);
+}
+.to-ravenclaw-dark\/20 {
+	background-color: rgba(7, 14, 42, 0.2);
+}
+.bg-hufflepuff-yellow\/10 {
+	background-color: rgba(236, 185, 57, 0.1);
+}
+.to-hufflepuff-dark\/20 {
+	background-color: rgba(201, 151, 0, 0.2);
+}
+
+.text-slytherin-silver {
+	color: #5d5d5d;
+}
+.text-ravenclaw-bronze {
+	color: #946b2d;
+}
+.text-hufflepuff-black {
+	color: #372e29;
+}
