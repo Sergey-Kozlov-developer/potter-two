@@ -3,6 +3,7 @@ import CharacterItem from "../../components/Character/CharacterItem.jsx";
 import { useHPApi } from "../../hooks/useHPApi.js";
 import Error from "../../components/Error/Error.jsx";
 import PaginationComponent from "../../components/Pagination/PaginationComponent.jsx";
+import DropDown from "../../components/DropDown/DropDown.jsx";
 
 function Characters() {
 	const { data, loading, error, pageCount, handlePageChange, currentPage } =
@@ -15,9 +16,12 @@ function Characters() {
 		<div className="min-h-screen bg-gradient-to-b from-[#0E1A40] to-[#1A472A] py-8 px-4">
 			<div className="max-w-7xl mx-auto">
 				<div className="parchment p-6 rounded-lg">
-					<h2 className="text-2xl font-magic text-gryffindor-gold mb-8 text-center">
-						Персонажи
-					</h2>
+					<div className="flex justify-between">
+						<h2 className="text-2xl font-magic text-gryffindor-gold mb-8 text-center">
+							Персонажи
+						</h2>
+						<DropDown />
+					</div>
 					{/* List characters */}
 
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
