@@ -1,20 +1,31 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-const BASE_URL = "https://hp-api.onrender.com/api/";
+const BASE_URL = "https://hp-api.onrender.com/api/characters/";
 const ITEMS_PER_PAGE = 6;
 
 export function useHPApi() {
-	const [data, setData] = useState([]);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState();
-	const [currentPage, setCurrentPage] = useState(0);
-	const [pageCount, setPageCount] = useState(0);
+	const [data, setData] = useState([]); // получение данных с бэка
+	const [loading, setLoading] = useState(true); // сьаьус загрузки
+	const [error, setError] = useState(); // ошибки загрузки
+	const [currentPage, setCurrentPage] = useState(0); // пагинация
+	const [pageCount, setPageCount] = useState(0); // пагинация
+	const [sortType, setSortType] = useState({
+		name: "Студенты",
+		sortProperty: "students",
+	});
+	// сортировка по учетелям, студентам и факультетам
+	const selectSort =
+		sortType.sortProperty === "students" ||
+		sortType.sortProperty === "staff"
+			? sortType.sortProperty
+			: `house/${sortType.name}`;
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				setLoading(true);
-				const response = await axios.get(`${BASE_URL}characters`);
+				const response = await axios.get(`${BASE_URL}${selectSort}`);
 				// получаем все данный
 				const fetchedData = response.data;
 				// вычисляем кол-во страниц
@@ -38,7 +49,7 @@ export function useHPApi() {
 			}
 		};
 		fetchData();
-	}, [currentPage]);
+	}, [currentPage, sortType]);
 	// Функция для изменения страницы
 	const handlePageChange = (selectedPage) => {
 		setCurrentPage(selectedPage.selected);
@@ -50,5 +61,7 @@ export function useHPApi() {
 		pageCount,
 		currentPage: currentPage + 1,
 		handlePageChange,
+		sortType,
+		setSortType,
 	};
 }

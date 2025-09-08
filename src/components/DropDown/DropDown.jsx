@@ -1,17 +1,29 @@
 import { useState } from "react";
 
-function DropDown() {
+function DropDown({ value, onChangeSort }) {
 	const [open, setOpen] = useState(false);
-	console.log(open);
+	const list = [
+		{ name: "Студенты", sortProperty: "students" },
+		{ name: "Учителя", sortProperty: "staff" },
+		{ name: "Gryffindor", sortProperty: "house" },
+		{ name: "Slytherin", sortProperty: "house" },
+		{ name: "Hufflepuff", sortProperty: "house" },
+		{ name: "Ravenclaw", sortProperty: "house" },
+	];
+	// const sortName = list[value];
+	const onClickListItem = (i) => {
+		onChangeSort(i);
+	};
 
 	return (
 		<div className="relative">
 			<button
-				className="flex items-center rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-black shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+				className="flex gap-2 items-center rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-black shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
 				type="button"
 				onClick={() => setOpen(!open)}
 			>
-				<span>Сортировать по:</span>
+				<span>Сортировать по: </span>
+				<span>{value.name}</span>
 				<span className="ms-2 w-2 [&>svg]:h-5 [&>svg]:w-5">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -28,22 +40,19 @@ function DropDown() {
 			</button>
 			{open && (
 				<ul className="absolute z-[1000] float-left m-0 min-w-max list-none rounded-lg border-none bg-white bg-clip-padding text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark">
-					<li>
-						<a
-							className="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-							href="#"
+					{list.map((obj, i) => (
+						<li
+							className={
+								value.sortProperty === obj.sortProperty
+									? "block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-amber-600 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+									: "block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-black hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+							}
+							key={i}
+							onClick={() => onClickListItem(obj)}
 						>
-							Факультет
-						</a>
-					</li>
-					<li>
-						<a
-							className="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-							href="#"
-						>
-							Имя
-						</a>
-					</li>
+							{obj.name}
+						</li>
+					))}
 				</ul>
 			)}
 		</div>
