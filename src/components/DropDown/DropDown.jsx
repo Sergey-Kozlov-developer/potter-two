@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSortType } from "../../redux/sort/sortSlice";
 
-function DropDown({ value, onChangeSort }) {
+function DropDown() {
 	const [open, setOpen] = useState(false);
+
 	const list = [
 		{ name: "Студенты", sortProperty: "students" },
 		{ name: "Учителя", sortProperty: "staff" },
@@ -11,9 +14,11 @@ function DropDown({ value, onChangeSort }) {
 		{ name: "Ravenclaw", sortProperty: "house" },
 	];
 	// const sortName = list[value];
-	const onClickListItem = (i) => {
-		onChangeSort(i);
+	const onClickListItem = (item) => {
+		dispatch(setSortType(item));
 	};
+	const { sortType } = useSelector((state) => state.sort);
+	const dispatch = useDispatch();
 
 	return (
 		<div className="relative">
@@ -23,7 +28,7 @@ function DropDown({ value, onChangeSort }) {
 				onClick={() => setOpen(!open)}
 			>
 				<span>Сортировать по: </span>
-				<span>{value.name}</span>
+				<span>{sortType.name}</span>
 				<span className="ms-2 w-2 [&>svg]:h-5 [&>svg]:w-5">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -40,17 +45,17 @@ function DropDown({ value, onChangeSort }) {
 			</button>
 			{open && (
 				<ul className="absolute z-[1000] float-left m-0 min-w-max list-none rounded-lg border-none bg-white bg-clip-padding text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark">
-					{list.map((obj, i) => (
+					{list.map((item) => (
 						<li
 							className={
-								value.sortProperty === obj.sortProperty
+								sortType.sortProperty === item.sortProperty
 									? "block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-amber-600 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
 									: "block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-black hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
 							}
-							key={i}
-							onClick={() => onClickListItem(obj)}
+							key={item.name}
+							onClick={() => onClickListItem(item)}
 						>
-							{obj.name}
+							{item.name}
 						</li>
 					))}
 				</ul>

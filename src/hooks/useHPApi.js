@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const BASE_URL = "https://hp-api.onrender.com/api/characters/";
 const ITEMS_PER_PAGE = 6;
@@ -10,10 +11,9 @@ export function useHPApi() {
 	const [error, setError] = useState(); // ошибки загрузки
 	const [currentPage, setCurrentPage] = useState(0); // пагинация
 	const [pageCount, setPageCount] = useState(0); // пагинация
-	const [sortType, setSortType] = useState({
-		name: "Студенты",
-		sortProperty: "students",
-	});
+	// вытаскиваем данные из redux
+	const { sortType } = useSelector((state) => state.sort);
+
 	// сортировка по учетелям, студентам и факультетам
 	const selectSort =
 		sortType.sortProperty === "students" ||
@@ -62,6 +62,5 @@ export function useHPApi() {
 		currentPage: currentPage + 1,
 		handlePageChange,
 		sortType,
-		setSortType,
 	};
 }

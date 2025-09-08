@@ -6,17 +6,8 @@ import PaginationComponent from "../../components/Pagination/PaginationComponent
 import DropDown from "../../components/DropDown/DropDown.jsx";
 
 function Characters() {
-	const {
-		data,
-		loading,
-		error,
-		pageCount,
-		handlePageChange,
-		currentPage,
-		sortType,
-		setSortType,
-	} = useHPApi();
-	// console.log(sortType);
+	const { data, loading, error, pageCount, handlePageChange, currentPage } =
+		useHPApi();
 
 	if (loading) return <Loading />;
 	if (error) return <Error message={error} />;
@@ -29,13 +20,8 @@ function Characters() {
 						<h2 className="text-2xl font-magic text-gryffindor-gold mb-8 text-center">
 							Персонажи
 						</h2>
-						<DropDown
-							value={sortType}
-							onChangeSort={(i) => setSortType(i)}
-						/>
+						<DropDown />
 					</div>
-					{/* List characters */}
-
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 						{data.map((item) => (
 							<CharacterItem key={item.id} character={item} />
