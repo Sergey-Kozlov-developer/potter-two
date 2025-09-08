@@ -32,7 +32,7 @@ function Navigation() {
 						Персонажи
 					</Link>
 
-					<Link
+					{/* <Link
 						to="/about"
 						className={`py-4 px-2 border-b-2 transition-colors ${
 							isActive("/about")
@@ -41,7 +41,7 @@ function Navigation() {
 						}`}
 					>
 						О проекте
-					</Link>
+					</Link> */}
 				</div>
 			</div>
 		</nav>
